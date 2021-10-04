@@ -1,0 +1,47 @@
+# Automates the process of testing, analyzing, checking the code format,
+# building, and deploying using Github Actions.
+name: Dart CI
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push request events but only for the master branch
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  # Check code formatting and static analysis on a single OS (linux)
+  # against stable and 2.12.0 (the package's lower bound).
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        sdk: [stable, 2.12.0]
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: ${{ matrix.sdk }}
+      # Get flutter dependencies.
+      - run: dart pub get
+      # Check for any formatting issues in the code.
+      - run: dart format --set-exit-if-changed lib/ test/ example/
+      # Statically analyze the Dart code for any errors.
+      - run: dart analyze lib/ test/ example/
+      # Run tests for our Dart project.
+      - run: dart test --coverage .
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage/lcov.info
