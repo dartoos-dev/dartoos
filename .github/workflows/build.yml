@@ -17,14 +17,14 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   # Check code formatting and static analysis on a single OS (linux)
-  # against stable and 2.12.0 (the package's lower bound).
+  # against stable or 2.12.0 (the package's lower bound).
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        sdk: [stable, 2.12.0]
+        sdk: [stable]
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
