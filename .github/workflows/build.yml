@@ -39,7 +39,9 @@ jobs:
       # Statically analyze the Dart code for any errors.
       - run: dart analyze lib/ test/ example/
       # Run tests for our Dart project.
-      - run: dart test --coverage .
+      - run: dart pub global activate coverage
+      - run: dart test --coverage="coverage"
+      - run: format_coverage --lcov --in=coverage --out=./coverage/lcov.info --packages=.packages --report-on=lib
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:

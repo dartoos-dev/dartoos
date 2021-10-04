@@ -4,5 +4,6 @@
 library dartoos;
 
 export 'src/dartoos_base.dart';
+export 'src/future_wrap.dart';
 
-// TODO: Export any libraries intended for clients of this package.
+// @todo: #3 Export any libraries intended for clients of this package.
