@@ -11,8 +11,7 @@ merge:
     dart pub get
     dart format --set-exit-if-changed lib/ test/ example/
     dart analyze lib/ test/ example/
-    dart test --coverage .
-    bash <(curl -s https://codecov.io/bash)
+    dart test
     dart pub publish --dry-run
 release:
   # updates pubspec.yaml's version attribute to $tag;
