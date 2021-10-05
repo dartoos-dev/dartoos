@@ -9,6 +9,8 @@ and this project adheres to [Dart Package Versioning](https://dart.dev/tools/pub
 
 ## [Unreleased]
 
+## [0.1.0] - 2021-10-05
+
 ### Added
 
 - FutureWrap class: instead of returning a value, subclasses will
