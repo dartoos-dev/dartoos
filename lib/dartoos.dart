@@ -1,8 +1,11 @@
-/// Support for doing something awesome.
+/// Collection of object-oriented utility classes for Dart/Flutter development.
 ///
-/// More dartdocs go here.
+///
+/// Inspired by [Cactoos](https://github.com/yegor256/cactoos)
 library dartoos;
 
+export 'base64.dart';
+export 'src/bytes.dart';
 export 'src/future_wrap.dart';
-export 'text.dart';
-// @todo: #3 Export any libraries intended for clients of this package.
+export 'src/rand.dart';
+export 'src/text.dart';

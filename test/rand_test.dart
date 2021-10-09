@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:dartoos/src/text/rand.dart';
+import 'package:dartoos/src/rand.dart';
 import 'package:test/test.dart';
 
 Future<void> main() async {

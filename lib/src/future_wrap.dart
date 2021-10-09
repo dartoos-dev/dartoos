@@ -6,10 +6,7 @@ import 'dart:async';
 /// subclasses will themselves be the value.
 abstract class FutureWrap<T> implements Future<T> {
   /// Main constructor.
-  FutureWrap(this._origin);
-
-  /// Creates a Future<T> from value.
-  FutureWrap.value(T value) : this(Future.value(value));
+  FutureWrap(FutureOr<T> origin) : _origin = Future.value(origin);
 
   /// The encapsulated original Future.
   final Future<T> _origin;

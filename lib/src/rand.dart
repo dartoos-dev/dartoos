@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import '../text.dart';
+import 'text.dart';
 
 /// Randomized text.
 class Rand extends Text {
