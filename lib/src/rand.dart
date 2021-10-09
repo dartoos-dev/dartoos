@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'text.dart';
@@ -6,7 +7,7 @@ import 'text.dart';
 class Rand extends Text {
   /// Random text having [src] as the source of eligible characters, [len] as
   /// the length, and [index] as the index randomizer.
-  Rand(int len, Future<String> src, [Random? index])
+  Rand(int len, FutureOr<String> src, [Random? index])
       : super(
           Future(() async {
             final buffer = StringBuffer();
@@ -20,12 +21,8 @@ class Rand extends Text {
         );
 
   /// Random digits [0–9] of length [len].
-  Rand.dig(int len, [Random? index]) : this.str(len, '0123456789', index);
+  Rand.dig(int len, [Random? index]) : this(len, '0123456789', index);
 
   /// Random hex digits [0–9a-f] of length [len].
-  Rand.hex(int len, [Random? index]) : this.str(len, '0123456789abcdef', index);
-
-  /// Random string of length [len] from [src].
-  Rand.str(int len, String src, [Random? index])
-      : this(len, Future.value(src), index);
+  Rand.hex(int len, [Random? index]) : this(len, '0123456789abcdef', index);
 }
