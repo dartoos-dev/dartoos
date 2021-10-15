@@ -20,8 +20,9 @@ and this project adheres to [Dart Package Versioning](https://dart.dev/tools/pub
 
 ### Changed
 
-- Rand class accept as source of characters both plain and Future values.
-- BytesOf constructors accept both plain and Future values.
+- Rand class now accepts not only plain values but also Futures
+  as a source of characters.
+- BytesOf constructors now accepts both plain values and Futures.
 
 ### Removed
 
