@@ -7,6 +7,8 @@ and this project adheres to [Dart Package Versioning](https://dart.dev/tools/pub
 
 ## [Unreleased]
 
+## [0.2.0] - 2021-10-15
+
 ### Added
 
 - Base64 and Base64Url encoding schemes —
