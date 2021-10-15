@@ -6,63 +6,110 @@ import 'package:dartoos/src/base64/base64.dart';
 import 'package:test/test.dart';
 
 Future<void> main() async {
-  group('Base64 Encoder', () {
+  group('Group of Base64 Encoders', () {
     group('Basic cases:', () {
       test('zero octets (Empty)', () async {
         expect(await Base64.utf8(''), '');
+        expect(await Base64NoPad.utf8(''), '');
+        expect(await Base64Url.utf8(''), '');
+        expect(await Base64UrlNoPad.utf8(''), '');
       });
       test('empty list of bytes', () async {
-        expect(await Base64(Uint8List(0)), '');
+        final empty = Uint8List(0);
+        expect(await Base64(empty), '');
+        expect(await Base64NoPad(empty), '');
+        expect(await Base64Url(empty), '');
+        expect(await Base64UrlNoPad(empty), '');
       });
-      test('one byte filled with zeroes', () async {
-        expect(await Base64(Uint8List(1)), 'AA==');
+      test('a single byte filled with zeroes', () async {
+        final zeroedByte = Uint8List(1);
+        expect(await Base64(zeroedByte), 'AA==');
+        expect(await Base64NoPad(zeroedByte), 'AA');
+        expect(await Base64Url(zeroedByte), 'AA==');
+        expect(await Base64UrlNoPad(zeroedByte), 'AA');
       });
       test('one byte filled with ones', () async {
-        expect(await Base64.list([0xff]), '/w==');
-        expect(await Base64Url.list([0xff]), '_w==');
+        const byte = [0xff];
+        expect(await Base64.list(byte), '/w==');
+        expect(await Base64NoPad.list(byte), '/w');
+        expect(await Base64Url.list(byte), '_w==');
+        expect(await Base64UrlNoPad.list(byte), '_w');
       });
       test('one octet (1 character)', () async {
         expect(await Base64.utf8('a'), 'YQ==');
-        expect(await Base64.utf8('*'), 'Kg==');
-        expect(await Base64.utf8('W'), 'Vw==');
-        expect(await Base64.utf8('0'), 'MA==');
+        expect(await Base64NoPad.utf8('a'), 'YQ');
+        expect(await Base64.utf8('a'), 'YQ==');
+        expect(await Base64NoPad.utf8('a'), 'YQ');
         expect(await Base64.utf8('9'), 'OQ==');
+        expect(await Base64NoPad.utf8('9'), 'OQ');
+        expect(await Base64Url.utf8('9'), 'OQ==');
+        expect(await Base64UrlNoPad.utf8('9'), 'OQ');
       });
       test('two octets (2 character)', () async {
         expect(await Base64.utf8('Xx'), 'WHg=');
+        expect(await Base64NoPad.utf8('Xx'), 'WHg');
+        expect(await Base64Url.utf8('Xx'), 'WHg=');
+        expect(await Base64UrlNoPad.utf8('Xx'), 'WHg');
       });
       test('three octets(3 character)', () async {
         expect(await Base64.utf8('123'), 'MTIz');
+        expect(await Base64NoPad.utf8('123'), 'MTIz');
+        expect(await Base64Url.utf8('123'), 'MTIz');
+        expect(await Base64UrlNoPad.utf8('123'), 'MTIz');
       });
       test('four octets(4 character)', () async {
         expect(await Base64.utf8('+-*/'), 'Ky0qLw==');
+        expect(await Base64NoPad.utf8('+-*/'), 'Ky0qLw');
+        expect(await Base64Url.utf8('+-*/'), 'Ky0qLw==');
+        expect(await Base64UrlNoPad.utf8('+-*/'), 'Ky0qLw');
       });
       test('five octets(5 character)', () async {
         expect(await Base64.utf8(r'%&$$@'), 'JSYkJEA=');
+        expect(await Base64NoPad.utf8(r'%&$$@'), 'JSYkJEA');
+        expect(await Base64Url.utf8(r'%&$$@'), 'JSYkJEA=');
+        expect(await Base64UrlNoPad.utf8(r'%&$$@'), 'JSYkJEA');
       });
       test('six octets (6 characteres)', () async {
         expect(await Base64.utf8('=#^^#='), 'PSNeXiM9');
+        expect(await Base64NoPad.utf8('=#^^#='), 'PSNeXiM9');
+        expect(await Base64Url.utf8('=#^^#='), 'PSNeXiM9');
+        expect(await Base64UrlNoPad.utf8('=#^^#='), 'PSNeXiM9');
       });
       test('a sentence', () async {
-        expect(
-          await Base64.utf8('Many hands make light work.'),
-          'TWFueSBoYW5kcyBtYWtlIGxpZ2h0IHdvcmsu',
-        );
+        const sentence = 'Many hands make light work.';
+        const encoded = 'TWFueSBoYW5kcyBtYWtlIGxpZ2h0IHdvcmsu';
+        expect(await Base64.utf8(sentence), encoded);
+        expect(await Base64NoPad.utf8(sentence), encoded);
+        expect(await Base64Url.utf8(sentence), encoded);
+        expect(await Base64UrlNoPad.utf8(sentence), encoded);
       });
       test('Chinese', () async {
         expect(await Base64.utf8('⿰書史'), '4r+w5pu45Y+y');
+        expect(await Base64NoPad.utf8('⿰書史'), '4r+w5pu45Y+y');
         expect(await Base64Url.utf8('⿰書史'), '4r-w5pu45Y-y');
+        expect(await Base64UrlNoPad.utf8('⿰書史'), '4r-w5pu45Y-y');
       });
       test('Greek', () async {
         expect(await Base64.utf8('ό,τι'), 'z4wsz4TOuQ==');
+        expect(await Base64NoPad.utf8('ό,τι'), 'z4wsz4TOuQ');
+        expect(await Base64Url.utf8('ό,τι'), 'z4wsz4TOuQ==');
+        expect(await Base64UrlNoPad.utf8('ό,τι'), 'z4wsz4TOuQ');
       });
     });
     group("Versus Dart's built-in Base64 decoder:", () {
       test('Chinese', () async {
         expect(await Base64.utf8('⿰書史'), base64.encode(utf8.encode('⿰書史')));
+        expect(
+          await Base64Url.utf8('⿰書史'),
+          base64Url.encode(utf8.encode('⿰書史')),
+        );
       });
       test('Greek', () async {
         expect(await Base64.utf8('ό,τι'), base64.encode(utf8.encode('ό,τι')));
+        expect(
+          await Base64Url.utf8('ό,τι'),
+          base64.encode(utf8.encode('ό,τι')),
+        );
       });
       test('The alphabet', () async {
         const String alphabet =

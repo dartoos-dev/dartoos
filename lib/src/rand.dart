@@ -13,7 +13,7 @@ class Rand extends Text {
             final buffer = StringBuffer();
             final randIndex = index ?? Random();
             final chars = await src;
-            for (int count = 0; count < len; count++) {
+            for (int count = 0; count < len; ++count) {
               buffer.write(chars[randIndex.nextInt(chars.length)]);
             }
             return buffer.toString();

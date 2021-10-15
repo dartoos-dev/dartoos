@@ -1,6 +1,5 @@
 /// Collection of object-oriented utility classes for Dart/Flutter development.
 ///
-///
 /// Inspired by [Cactoos](https://github.com/yegor256/cactoos)
 library dartoos;
 
