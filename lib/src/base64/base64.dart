@@ -12,13 +12,32 @@ import '../text.dart';
 /// **padding**: '='.
 class Base64 extends Text {
   /// Encodes [bytes] to Base64 text.
-  Base64(FutureOr<Uint8List> bytes) : super(_Base64Impl(bytes));
+  Base64(FutureOr<Uint8List> bytes)
+      : super(_Base64Impl(bytes, _base64Alphabet));
 
   /// Encodes the utf8-encoded bytes of [str] to Base64 text.
-  Base64.utf8(String str) : this(BytesOf.utf8(str));
+  Base64.utf8(FutureOr<String> str) : this(BytesOf.utf8(str));
 
   /// Encodes the bytes of [list] to Base64 text.
-  Base64.list(List<int> list) : this(BytesOf.list(list));
+  Base64.list(FutureOr<List<int>> list) : this(BytesOf.list(list));
+}
+
+/// The Default Base64 encoding scheme without padding —
+/// [RFC 4648 section 4](https://datatracker.ietf.org/doc/html/rfc4648#section-4)
+///
+/// **alphabet**: A–Za–z0–9+/
+class Base64NoPad extends Text {
+  /// Encodes [bytes] to Base64 text without padding characters.
+  Base64NoPad(FutureOr<Uint8List> bytes)
+      : super(
+          _Base64Impl.noPad(bytes, _base64Alphabet),
+        );
+
+  /// Encodes the utf8-encoded bytes of [str] to Base64 text.
+  Base64NoPad.utf8(String str) : this(BytesOf.utf8(str));
+
+  /// Encodes the bytes of [list] to Base64 text.
+  Base64NoPad.list(List<int> list) : this(BytesOf.list(list));
 }
 
 /// The Base 64 encoding with an URL and filename safe alphabet —
@@ -28,47 +47,64 @@ class Base64 extends Text {
 /// **padding**: '='.
 class Base64Url extends Text {
   /// Encodes [bytes] to Base64 text with URL and filename safe alphabet.
-  Base64Url(FutureOr<Uint8List> bytes) : super(_Base64Impl.url(bytes));
+  Base64Url(FutureOr<Uint8List> bytes)
+      : super(_Base64Impl(bytes, _base64UrlAlphabet));
 
   /// Encodes the utf8-encoded bytes of [str] to Base64Url text.
-  Base64Url.utf8(String str) : this(BytesOf.utf8(str));
+  Base64Url.utf8(FutureOr<String> str) : this(BytesOf.utf8(str));
 
   /// Encodes the bytes of [list] to Base64Url text.
-  Base64Url.list(List<int> list) : this(BytesOf.list(list));
+  Base64Url.list(FutureOr<List<int>> list) : this(BytesOf.list(list));
+}
+
+/// The Base 64 encoding with an URL and filename safe alphabet without padding
+/// — [RFC 4648 section 5](https://datatracker.ietf.org/doc/html/rfc4648#section-5)
+///
+/// **alphabet**: A–Za–z0–9-_
+class Base64UrlNoPad extends Text {
+  /// Encodes [bytes] to Base64 text with URL and filename safe alphabet.
+  Base64UrlNoPad(FutureOr<Uint8List> bytes)
+      : super(_Base64Impl.noPad(bytes, _base64UrlAlphabet));
+
+  /// Encodes the utf8-encoded bytes of [str] to Base64Url text.
+  Base64UrlNoPad.utf8(FutureOr<String> str) : this(BytesOf.utf8(str));
+
+  /// Encodes the bytes of [list] to Base64Url text.
+  Base64UrlNoPad.list(FutureOr<List<int>> list) : this(BytesOf.list(list));
 }
 
 /// The actual implementation of Base64.
 class _Base64Impl extends Text {
   /// Default Base64.
-  _Base64Impl(FutureOr<Uint8List> bytesToEncode)
-      : this._alphabet(bytesToEncode, _base64Alphabet);
-
-  /// Url Base64
-  _Base64Impl.url(FutureOr<Uint8List> bytesToEncode)
-      : this._alphabet(bytesToEncode, _base64UrlAlphabet);
-
-  /// Helper ctor.
-  _Base64Impl._alphabet(FutureOr<Uint8List> bytesToEncode, String alphabet)
+  _Base64Impl(FutureOr<Uint8List> bytesToEncode, String alphabet)
       : super(
           Future(() async {
-            final bytes = await bytesToEncode;
+            final unencoded = await bytesToEncode;
             return _Base64Str(
-              _Pad(
-                _Base64Bytes(_Base64Indexes(bytes), alphabet),
-                bytes,
-              ),
+              _Pad(_Base64Indexes(unencoded, alphabet), unencoded),
             ).toString();
           }),
         );
 
-  /// The base64 alphabet.
-  static const String _base64Alphabet =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-
-  /// The base64url alphabet.
-  static const String _base64UrlAlphabet =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+  /// Base64 with no trailing padding '='.
+  _Base64Impl.noPad(FutureOr<Uint8List> bytesToEncode, String alphabet)
+      : super(
+          Future(() async {
+            final unencoded = await bytesToEncode;
+            return _Base64Str(
+              _Base64Indexes.noPad(unencoded, alphabet),
+            ).toString();
+          }),
+        );
 }
+
+/// The base64 alphabet.
+const String _base64Alphabet =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+/// The base64url alphabet.
+const String _base64UrlAlphabet =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
 
 /// Base64 bytes as [String].
 class _Base64Str {
@@ -106,26 +142,6 @@ class _Pad {
         break;
       case 2: // One padding char.
         base64[base64.length - 1] = _pad;
-        break;
-    }
-    return base64;
-  }
-}
-
-/// A list of sextets indexes as a base64 byte list.
-class _Base64Bytes {
-  /// Transforms a list of sextets indexes into a list of base64 encoded bytes.
-  const _Base64Bytes(this._toIndexes, this._alphabet);
-
-  /// Something that retrieves a list of sextets indexes.
-  final Uint8List Function() _toIndexes;
-  final String _alphabet;
-
-  Uint8List call() {
-    final base64 = _toIndexes();
-    for (int i = 0; i < base64.lengthInBytes; ++i) {
-      final index = base64[i];
-      base64[i] = _alphabet.codeUnitAt(index);
     }
     return base64;
   }
@@ -133,10 +149,25 @@ class _Base64Bytes {
 
 /// Bytes as a list of base64 alphabet sextets indexes.
 class _Base64Indexes {
-  /// Converts an unencoded list of bytes into a list of sextets indexes.
-  const _Base64Indexes(this._unencoded);
+  /// Converts an unencoded list of bytes into a list of sextets indexes. It
+  /// will append one or two extra bytes for padding, If needed.
+  _Base64Indexes(Uint8List unencoded, String alphabet)
+      : this.main(unencoded, alphabet, _NewBytes(unencoded));
+
+  /// Converts an unencoded list of bytes into a list of sextets indexes without
+  /// extra space for padding.
+  _Base64Indexes.noPad(Uint8List unencoded, String alphabet)
+      : this.main(unencoded, alphabet, _NewBytes.noPad(unencoded));
+
+  /// Main ctor.
+  _Base64Indexes.main(this._unencoded, this._alphabet, this._newBytes);
+
   // The unencoded bytes.
   final Uint8List _unencoded;
+  // The set of characters to work with.
+  final String _alphabet;
+  // Something that produces a zero-initialized list of bytes.
+  final Uint8List Function() _newBytes;
 
   /// a bitmask for the 6 most-significant bits 11111100.
   static const _mask6Msb = 0xfc;
@@ -158,65 +189,79 @@ class _Base64Indexes {
 
   /// List of sextets indexes.
   Uint8List call() {
-    final indexes = _NewListOfBytes(_unencoded).value;
-    int sextetIndex = 0;
-    for (int octetIndex = 0;
-        octetIndex < _unencoded.lengthInBytes;
-        ++octetIndex) {
-      final octet = _unencoded[octetIndex];
-      switch (octetIndex % 3) {
+    int byteGroup = 0; // the group of 8-bits in 24-bits.
+    int index = 0x00; // the 6-bits index of the base64 alphabet.
+    int i6 = 0; //sextets index
+    final sextets = _newBytes();
+    for (int i8 = 0; i8 < _unencoded.lengthInBytes; ++i8) {
+      final octet = _unencoded[i8];
+      switch (byteGroup) {
         case 0:
-          {
-            // sets the sextet to the 6-msb of the octet.
-            indexes[sextetIndex] = (octet & _mask6Msb) >> 2;
-            // sets the 2-most-significant bits of the next sextet to the
-            // 2-least-significant bits of the current octet (byte).
-            indexes[sextetIndex + 1] = (octet & _mask2Lsb) << 4; // 00110000
-            ++sextetIndex;
-            break;
-          }
+          // sets the sextet to the 6-msb of the octet.
+          index = (octet & _mask6Msb) >> 2;
+          sextets[i6] = _alphabet.codeUnitAt(index);
+          // sets the 2-most-significant bits of the next index to the
+          // 2-least-significant bits of the current octet (byte).
+          index = (octet & _mask2Lsb) << 4;
+          ++i6;
+          byteGroup = 1;
+          break;
         case 1:
-          {
-            /// combines the partial value of the sextet (2-msb) with the 4-msb of the
-            /// current octet.
-            indexes[sextetIndex] =
-                indexes[sextetIndex] | ((octet & _mask4Msb) >> 4);
-            // sets the 4-msb of the next sextet to the 4-lsb of the current
-            // octet (byte).
-            indexes[sextetIndex + 1] = (octet & _mask4Lsb) << 2; // 00111100
-            ++sextetIndex;
-            break;
-          }
+          // combines the partial value of index (2-msb) with the 4-msb of the
+          // current octet.
+          index |= (octet & _mask4Msb) >> 4;
+          sextets[i6] = _alphabet.codeUnitAt(index);
+          // sets the 4-msb of the next index to the 4-lsb of the current octet
+          // (byte).
+          index = (octet & _mask4Lsb) << 2;
+          ++i6;
+          byteGroup = 2;
+          break;
         case 2:
-          {
-            /// combines the partial value of the sextet (4-msb) with the 2-msb
-            /// of the current octet.
-            indexes[sextetIndex] =
-                indexes[sextetIndex] | ((octet & _mask2Msb) >> 6);
-            // sets the next sextet as the 6-lsb of the current octet — whole
-            // sextet value.
-            indexes[sextetIndex + 1] = octet & _mask6Lsb;
-            sextetIndex += 2;
-            break;
-          }
+          // combines the partial value of the index (4-msb) with the 2-msb of
+          // the current octet.
+          index |= (octet & _mask2Msb) >> 6;
+          sextets[i6] = _alphabet.codeUnitAt(index);
+          // sets the next sextet as the 6-lsb of the current octet — whole sextet value.
+          index = octet & _mask6Lsb;
+          sextets[i6 + 1] = _alphabet.codeUnitAt(index);
+          i6 += 2;
+          byteGroup = 0; // resets byteGroup.
       }
     }
-    return indexes;
+    // _unencoded.lengthInBytes % 3 != 0
+    if (byteGroup != 0) {
+      sextets[i6] = _alphabet.codeUnitAt(index);
+    }
+    return sextets;
   }
 }
 
 /// List for base64 encoded bytes.
-class _NewListOfBytes {
-  /// Makes a zero-initialized (0x00) list of bytes to hold base64 encoded
-  /// bytes.
-  const _NewListOfBytes(this._unencoded);
+class _NewBytes {
+  /// Makes a zero-initialized (0x00) list of bytes whose length is a multiple
+  /// of four and at least 4/3 of the length of [unencoded].
+  _NewBytes(Uint8List unencoded)
+      : this.main(() {
+          final length = _fourThirdOf(unencoded);
+          final mod4 = length % 4;
+          return mod4 == 0 ? Uint8List(length) : Uint8List(length + 4 - mod4);
+        });
 
-  final Uint8List _unencoded;
+  /// Makes a zero-initialized (0x00) list of bytes whose length is always 4/3
+  /// of the length of [unencoded].
+  _NewBytes.noPad(Uint8List unencoded)
+      : this.main(() => Uint8List(_fourThirdOf(unencoded)));
 
-  /// Retrieves a zero-initialized list whose length is a multiple of four.
-  Uint8List get value {
-    final length = (_unencoded.lengthInBytes * 4 / 3.0).ceil();
-    final mod4 = length % 4;
-    return mod4 == 0 ? Uint8List(length) : Uint8List(length + 4 - mod4);
-  }
+  /// Main ctor.
+  _NewBytes.main(this._toNewBytes);
+
+  static int _fourThirdOf(Uint8List bytes) =>
+      (bytes.lengthInBytes * 4 / 3.0).ceil();
+
+  // The algorithm for computing the byte list.
+  final Uint8List Function() _toNewBytes;
+
+  /// Retrieves a zero-initialized list of bytes.
+  Uint8List call() => _toNewBytes();
 }

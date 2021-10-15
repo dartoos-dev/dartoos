@@ -7,3 +7,5 @@
 library base64;
 
 export 'src/base64/base64.dart';
+export 'src/base64/base64_norm.dart';
+export 'src/base64/base64decode.dart';

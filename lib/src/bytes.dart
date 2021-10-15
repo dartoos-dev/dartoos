@@ -17,11 +17,14 @@ class BytesOf extends Bytes {
   BytesOf(FutureOr<Uint8List> bytes) : super(bytes);
 
   /// List of integers as [Uint8List].
-  BytesOf.list(List<int> list) : this(Uint8List.fromList(list));
+  BytesOf.list(FutureOr<List<int>> list)
+      : this(Future(() async => Uint8List.fromList(await list)));
 
   /// String as a list of UTF-8 bytes.
-  BytesOf.utf8(String str) : this.list(utf8.encode(str));
+  BytesOf.utf8(FutureOr<String> str)
+      : this.list(Future(() async => utf8.encode(await str)));
 
   /// The file's content as bytes.
-  BytesOf.file(File file) : this(file.readAsBytes());
+  BytesOf.file(FutureOr<File> file)
+      : this(Future(() async => (await file).readAsBytes()));
 }

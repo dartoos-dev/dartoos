@@ -37,11 +37,11 @@ Future<void> main() async {
   });
   group('Rand.str', () {
     test('length', () async {
-      final one = await Rand.str(1, 'abc');
+      final one = await Rand(1, 'abc');
       expect(one.length, 1);
     });
     test('custom characters source', () async {
-      final custom = await Rand.str(100, 'a', SeqIndexRandom());
+      final custom = await Rand(100, 'a', SeqIndexRandom());
       expect(custom.length, 100);
 
       /// Must not contain any character other than 'a'
