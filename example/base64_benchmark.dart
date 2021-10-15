@@ -10,14 +10,15 @@ import 'package:dartoos/dartoos.dart';
 /// ```dart /example/base64_benchmark.dart```
 ///
 /// or
-/// 
+///
 /// Compile to 'jit'.
 /// ```dart compile jit-snapshot example/base64_benchmark.dart```
 /// ```dart /example/base64_benchmark.jit```
 Future<void> main() async {
   print("Dartoos base64 vs. Dart's built-in base64...");
 
-  const wordLength = 15000000; const elegibleChars =
+  const wordLength = 15000000;
+  const elegibleChars =
       r'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-*/|\;:?[]{}()!@#$%*';
   // The bytes of a randomly generated word whose length is [wordLength]
   // characters.
@@ -43,10 +44,10 @@ Future<void> main() async {
   final dartoosDecodingTime =
       DateTime.now().millisecondsSinceEpoch - dartoosDecodingStart;
 
-  print('\n--- Encoding elapsed times ---'); 
+  print('\n--- Encoding elapsed times ---');
   print('Dartoos base64-encoding: $dartoosEncodingTime ms');
   print('Builtin base64-encoding: $dartEncodingTime ms');
-  print('\n--- Decoding elapsed times ---'); 
+  print('\n--- Decoding elapsed times ---');
   print('Dartoos base64-decoding: $dartoosDecodingTime ms');
   print('Builtin base64-decoding: $dartDecodingTime ms');
   print('\n--- Encoding/decoding results comparison ---');
