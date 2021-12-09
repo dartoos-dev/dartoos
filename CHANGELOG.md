@@ -7,6 +7,8 @@ and this project adheres to [Dart Package Versioning](https://dart.dev/tools/pub
 
 ## [Unreleased]
 
+## [0.3.0] - 2021-12-09
+
 ### Added
 
 - file "func.dart" with the definition of the functional interfaces.
