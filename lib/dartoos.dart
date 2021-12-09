@@ -8,4 +8,5 @@ export 'crypto.dart';
 export 'radix.dart';
 export 'rand.dart';
 export 'src/byte.dart';
+export 'src/func.dart';
 export 'src/text/text.dart';
