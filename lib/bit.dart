@@ -1,0 +1,30 @@
+/// Collection of bit-related classes
+library bit;
+
+export 'src/bit/add.dart';
+export 'src/bit/and.dart';
+export 'src/bit/bit.dart';
+export 'src/bit/dec.dart';
+export 'src/bit/div.dart';
+export 'src/bit/fix_bit_len.dart';
+export 'src/bit/inc.dart';
+export 'src/bit/mand.dart';
+export 'src/bit/mask.dart';
+export 'src/bit/min_bit_len.dart';
+export 'src/bit/mod.dart';
+export 'src/bit/mor.dart';
+export 'src/bit/mul.dart';
+export 'src/bit/nop.dart';
+export 'src/bit/not.dart';
+export 'src/bit/nshl.dart';
+export 'src/bit/nshr.dart';
+export 'src/bit/nshrs.dart';
+export 'src/bit/or.dart';
+export 'src/bit/rotl.dart';
+export 'src/bit/rotr.dart';
+export 'src/bit/set_uint64.dart';
+export 'src/bit/shl.dart';
+export 'src/bit/shr.dart';
+export 'src/bit/shrs.dart';
+export 'src/bit/sub.dart';
+export 'src/bit/xor.dart';

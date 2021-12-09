@@ -1,0 +1,318 @@
+import 'dart:typed_data';
+
+import 'radix.dart';
+
+/// Hexadecimal text of a list of bytes.
+const hexBytes = HexOfBytes();
+
+/// Hexadecimal text representation of bytes.
+///
+/// Normally, the default characters [0–9a–f] are suitable for most cases;
+/// however, in some special circumstances, it may be desirable to use different
+/// symbols. You can change the hexadecimal symbols by setting the constructor
+/// parameter _codeUnits_ with your custom symbols.
+class HexOfBytes implements BytesAsText {
+  /// Hexadecimal text of a list of bytes — default hex symbols [0–9a–f].
+  ///
+  /// Each byte is represented by two hex digits. Examples:
+  ///
+  /// - a list of three bytes like _[0x01, 0x02, 0x0b]_ will be represented by
+  /// the hex digits '01020b', where 01 => 0x01; 02 => 0x02; and 0b =>
+  /// 0x0b.
+  /// - a list whose content is _[0x00, 0x77, 0x48, 0xaa, 0xff]_ will be
+  /// represented by the text '007748aaff', where: 00 => 0x00; 77 => 0x77; 48 =>
+  /// 0x48; aa => 0xaa; and ff => 0xff.
+  ///
+  /// The [codeUnits] parameter is a fixed 256-element list that sets the
+  /// characters to be used. Each element is a two-byte group of UTF-8 code
+  /// units. For example, if the first element is _0x3030_ (unicode for '00'),
+  /// then any byte whose value is 0x00 (zero) will be printed as '00';
+  /// likewise, if the second element is _0x3031_ (unicode for '01'), then every
+  /// byte with a value of 0x01 (one) will be printed as '01'; finally, if the
+  /// last element is _0x6666_ (unicode for 'ff'), then bytes whose value is
+  /// 0xff (255) will be printed as 'ff'.
+  ///
+  /// In summary: each byte is used as an index in the hexadecimal symbol lookup
+  /// table.
+  ///
+  /// See also:
+  /// - [list of unicode characters](https://en.wikipedia.org/wiki/List_of_Unicode_characters)
+  const HexOfBytes({List<int> codeUnits = _lowercaseHex})
+      : _codeUnits = codeUnits;
+
+  // The source of hex characters.
+  final List<int> _codeUnits;
+
+  /// Text in hexadecimal notation of a list of bytes.
+  ///
+  /// Each byte is represented by two hexadecimal symbols (digits).
+  @override
+  String call(Uint8List bytes) {
+    assert(_codeUnits.length == 256);
+    final hexCodes = ByteData(bytes.length * 2);
+    for (var i = 0; i < bytes.length; ++i) {
+      hexCodes.setUint16(i * 2, _codeUnits[bytes[i]]);
+    }
+    return String.fromCharCodes(hexCodes.buffer.asUint8List());
+  }
+
+  /// Lowercase 256 hex values from '00₁₆' to 'ff₁₆'.
+  static const _lowercaseHex = [
+    0x3030, // '00'
+    0x3031, // '01'
+    0x3032, // '02'
+    0x3033, // '03'
+    0x3034, // '04'
+    0x3035, // '05'
+    0x3036, // '06'
+    0x3037, // '07'
+    0x3038, // '08'
+    0x3039, // '09'
+    0x3061, // '0a'
+    0x3062, // '0b'
+    0x3063, // '0c'
+    0x3064, // '0d'
+    0x3065, // '0e'
+    0x3066, // '0f'
+    0x3130, // '10'
+    0x3131, // '11'
+    0x3132, // '12'
+    0x3133, // '13'
+    0x3134, // '14'
+    0x3135, // '15'
+    0x3136, // '16'
+    0x3137, // '17'
+    0x3138, // '18'
+    0x3139, // '19'
+    0x3161, // '1a'
+    0x3162, // '1b'
+    0x3163, // '1c'
+    0x3164, // '1d'
+    0x3165, // '1e'
+    0x3166, // '1f'
+    0x3230, // '20'
+    0x3231, // '21'
+    0x3232, // '22'
+    0x3233, // '23'
+    0x3234, // '24'
+    0x3235, // '25'
+    0x3236, // '26'
+    0x3237, // '27'
+    0x3238, // '28'
+    0x3239, // '29'
+    0x3261, // '2a'
+    0x3262, // '2b'
+    0x3263, // '2c'
+    0x3264, // '2d'
+    0x3265, // '2e'
+    0x3266, // '2f'
+    0x3330, // '30'
+    0x3331, // '31'
+    0x3332, // '32'
+    0x3333, // '33'
+    0x3334, // '34'
+    0x3335, // '35'
+    0x3336, // '36'
+    0x3337, // '37'
+    0x3338, // '38'
+    0x3339, // '39'
+    0x3361, // '3a'
+    0x3362, // '3b'
+    0x3363, // '3c'
+    0x3364, // '3d'
+    0x3365, // '3e'
+    0x3366, // '3f'
+    0x3430, // '40'
+    0x3431, // '41'
+    0x3432, // '42'
+    0x3433, // '43'
+    0x3434, // '44'
+    0x3435, // '45'
+    0x3436, // '46'
+    0x3437, // '47'
+    0x3438, // '48'
+    0x3439, // '49'
+    0x3461, // '4a'
+    0x3462, // '4b'
+    0x3463, // '4c'
+    0x3464, // '4d'
+    0x3465, // '4e'
+    0x3466, // '4f'
+    0x3530, // '50'
+    0x3531, // '51'
+    0x3532, // '52'
+    0x3533, // '53'
+    0x3534, // '54'
+    0x3535, // '55'
+    0x3536, // '56'
+    0x3537, // '57'
+    0x3538, // '58'
+    0x3539, // '59'
+    0x3561, // '5a'
+    0x3562, // '5b'
+    0x3563, // '5c'
+    0x3564, // '5d'
+    0x3565, // '5e'
+    0x3566, // '5f'
+    0x3630, // '60'
+    0x3631, // '61'
+    0x3632, // '62'
+    0x3633, // '63'
+    0x3634, // '64'
+    0x3635, // '65'
+    0x3636, // '66'
+    0x3637, // '67'
+    0x3638, // '68'
+    0x3639, // '69'
+    0x3661, // '6a'
+    0x3662, // '6b'
+    0x3663, // '6c'
+    0x3664, // '6d'
+    0x3665, // '6e'
+    0x3666, // '6f'
+    0x3730, // '70'
+    0x3731, // '71'
+    0x3732, // '72'
+    0x3733, // '73'
+    0x3734, // '74'
+    0x3735, // '75'
+    0x3736, // '76'
+    0x3737, // '77'
+    0x3738, // '78'
+    0x3739, // '79'
+    0x3761, // '7a'
+    0x3762, // '7b'
+    0x3763, // '7c'
+    0x3764, // '7d'
+    0x3765, // '7e'
+    0x3766, // '7f'
+    0x3830, // '80'
+    0x3831, // '81'
+    0x3832, // '82'
+    0x3833, // '83'
+    0x3834, // '84'
+    0x3835, // '85'
+    0x3836, // '86'
+    0x3837, // '87'
+    0x3838, // '88'
+    0x3839, // '89'
+    0x3861, // '8a'
+    0x3862, // '8b'
+    0x3863, // '8c'
+    0x3864, // '8d'
+    0x3865, // '8e'
+    0x3866, // '8f'
+    0x3930, // '90'
+    0x3931, // '91'
+    0x3932, // '92'
+    0x3933, // '93'
+    0x3934, // '94'
+    0x3935, // '95'
+    0x3936, // '96'
+    0x3937, // '97'
+    0x3938, // '98'
+    0x3939, // '99'
+    0x3961, // '9a'
+    0x3962, // '9b'
+    0x3963, // '9c'
+    0x3964, // '9d'
+    0x3965, // '9e'
+    0x3966, // '9f'
+    0x6130, // 'a0'
+    0x6131, // 'a1'
+    0x6132, // 'a2'
+    0x6133, // 'a3'
+    0x6134, // 'a4'
+    0x6135, // 'a5'
+    0x6136, // 'a6'
+    0x6137, // 'a7'
+    0x6138, // 'a8'
+    0x6139, // 'a9'
+    0x6161, // 'aa'
+    0x6162, // 'ab'
+    0x6163, // 'ac'
+    0x6164, // 'ad'
+    0x6165, // 'ae'
+    0x6166, // 'af'
+    0x6230, // 'b0'
+    0x6231, // 'b1'
+    0x6232, // 'b2'
+    0x6233, // 'b3'
+    0x6234, // 'b4'
+    0x6235, // 'b5'
+    0x6236, // 'b6'
+    0x6237, // 'b7'
+    0x6238, // 'b8'
+    0x6239, // 'b9'
+    0x6261, // 'ba'
+    0x6262, // 'bb'
+    0x6263, // 'bc'
+    0x6264, // 'bd'
+    0x6265, // 'be'
+    0x6266, // 'bf'
+    0x6330, // 'c0'
+    0x6331, // 'c1'
+    0x6332, // 'c2'
+    0x6333, // 'c3'
+    0x6334, // 'c4'
+    0x6335, // 'c5'
+    0x6336, // 'c6'
+    0x6337, // 'c7'
+    0x6338, // 'c8'
+    0x6339, // 'c9'
+    0x6361, // 'ca'
+    0x6362, // 'cb'
+    0x6363, // 'cc'
+    0x6364, // 'cd'
+    0x6365, // 'ce'
+    0x6366, // 'cf'
+    0x6430, // 'd0'
+    0x6431, // 'd1'
+    0x6432, // 'd2'
+    0x6433, // 'd3'
+    0x6434, // 'd4'
+    0x6435, // 'd5'
+    0x6436, // 'd6'
+    0x6437, // 'd7'
+    0x6438, // 'd8'
+    0x6439, // 'd9'
+    0x6461, // 'da'
+    0x6462, // 'db'
+    0x6463, // 'dc'
+    0x6464, // 'dd'
+    0x6465, // 'de'
+    0x6466, // 'df'
+    0x6530, // 'e0'
+    0x6531, // 'e1'
+    0x6532, // 'e2'
+    0x6533, // 'e3'
+    0x6534, // 'e4'
+    0x6535, // 'e5'
+    0x6536, // 'e6'
+    0x6537, // 'e7'
+    0x6538, // 'e8'
+    0x6539, // 'e9'
+    0x6561, // 'ea'
+    0x6562, // 'eb'
+    0x6563, // 'ec'
+    0x6564, // 'ed'
+    0x6565, // 'ee'
+    0x6566, // 'ef'
+    0x6630, // 'f0'
+    0x6631, // 'f1'
+    0x6632, // 'f2'
+    0x6633, // 'f3'
+    0x6634, // 'f4'
+    0x6635, // 'f5'
+    0x6636, // 'f6'
+    0x6637, // 'f7'
+    0x6638, // 'f8'
+    0x6639, // 'f9'
+    0x6661, // 'fa'
+    0x6662, // 'fb'
+    0x6663, // 'fc'
+    0x6664, // 'fd'
+    0x6665, // 'fe'
+    0x6666, // 'ff'
+  ];
+}

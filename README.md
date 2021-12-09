@@ -33,8 +33,7 @@ This project is heavily inspired by Java
 
 - No external dependencies.
 - Object-Oriented mindset: each concept is implemented by an **immutable** class.
-- For easier composability and integration with the undelying Dart's sdk, most
-  of the classes are instances of Future.
+- Straightforward integration with the underlying Dart sdk.
 
 ## Getting started
 

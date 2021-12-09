@@ -1,0 +1,16 @@
+name: dartoos_showcase
+description: Set of benchmarks and examples that.
+version: 1.0.0
+homepage: https://dartoos.dev
+repository: https://github.com/dartoos-dev/dartoos
+publish_to: 'none'
+
+environment:
+  sdk: '>=2.14.4 <3.0.0'
+
+dependencies:
+  crypto: ^3.0.1
+  dartoos:
+    path: ../
+
+  lint: ^1.7.2

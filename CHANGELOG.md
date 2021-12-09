@@ -7,6 +7,29 @@ and this project adheres to [Dart Package Versioning](https://dart.dev/tools/pub
 
 ## [Unreleased]
 
+### Added
+
+- file "func.dart" with the definition of the functional interfaces.
+- cryptographic package with hash functions sha224, sha256, sha384, sha512,
+  along with their related Hmac function (Hash-based message authentication
+  code)
+- tabular text of ordinary text and data. The data can be represented with
+  binary, octal, decimal, or hexadecimal notation.
+- radix package: a set of classes for converting numeric data into its textual
+  representation in a given radix (numeric base).
+- bit package: a set of classes for bit-related operations.
+- several benchmarks comparing Dartoos to the Dart sdk or other third-party
+  packages like _Crypto_.
+
+### Changed
+
+- No class extends FutureWrap any more — **BREAKING CHANGE**.
+- A general reorganization of the package directory structures.
+
+### Removed
+
+- FutureWrap — **BREAKING CHANGE**.
+
 ## [0.2.0] - 2021-10-15
 
 ### Added
