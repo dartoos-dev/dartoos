@@ -2,17 +2,47 @@ import 'dart:typed_data';
 
 import 'base64.dart';
 
+/// Standard base64 encoding.
+///
+/// **alphabet**: A–Za–z0–9+/
+/// **padding**: '=' or '==', if needed.
+///
+/// [Base64](https://datatracker.ietf.org/doc/html/rfc4648#section-4)
+const base64 = Base64Enc();
+
+/// Standard base64 encoding without padding '=' signs.
+///
+/// **alphabet**: A–Za–z0–9+/
+///
+/// [Base64](https://datatracker.ietf.org/doc/html/rfc4648#section-4)
+const base64NoPad = Base64Enc.noPad();
+
+/// URL- and filename-safe base64 encoding.
+///
+/// **alphabet**: A–Za–z0–9-_
+/// **padding**: '=' or '==', if needed.
+///
+/// [Base64Url](https://datatracker.ietf.org/doc/html/rfc4648#section-5)
+const base64Url = Base64UrlEnc();
+
+/// URL- and filename-safe base64 encoding without padding '=' signs
+///
+/// **alphabet**: A–Za–z0–9-_
+///
+/// [Base64Url](https://datatracker.ietf.org/doc/html/rfc4648#section-5)
+const base64UrlNoPad = Base64UrlEnc.noPad();
+
 /// Standard Base64 Encoder
 ///
 /// [Base64](https://datatracker.ietf.org/doc/html/rfc4648#section-4)
 class Base64Enc implements Base64Encoder {
-  /// Base64.
+  /// Base64 Encoding
   ///
   /// **alphabet**: A–Za–z0–9+/
-  /// **padding**: '='
+  /// **padding**: '=' or '==', if needed.
   const Base64Enc() : this._set(const _Base64Str(_Pad(_Base64Indexes(_std))));
 
-  /// Base64 without padding '=' signs.
+  /// Base64 encoding without padding '=' signs
   ///
   /// **alphabet**: A–Za–z0–9+/
   const Base64Enc.noPad()
@@ -38,14 +68,14 @@ class Base64Enc implements Base64Encoder {
 ///
 /// [Base64Url](https://datatracker.ietf.org/doc/html/rfc4648#section-5)
 class Base64UrlEnc implements Base64Encoder {
-  /// Base64Url
+  /// Base64Url Encoding
   ///
   /// **default alphabet**: A–Za–z0–9-_
-  /// **padding**: '='.
+  /// **padding**: '=' or '==', if needed.
   const Base64UrlEnc()
       : this._set(const _Base64Str(_Pad(_Base64Indexes(_url))));
 
-  /// Base64Url without padding '=' signs.
+  /// Base64Url encoding without padding '=' signs
   ///
   /// **alphabet**: A–Za–z0–9-_
   const Base64UrlEnc.noPad()

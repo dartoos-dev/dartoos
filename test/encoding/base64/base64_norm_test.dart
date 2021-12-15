@@ -12,20 +12,17 @@ import 'package:test/test.dart';
 /// Any '=' becomes '%3D' or '%3d'.
 class PercEncEqual {
   /// Sets the source of bytes [src], encoder [enc], and percent-encoded string.
-  PercEncEqual(
-    String src, {
-    Base64Encoder enc = const Base64Enc(),
-    String perc = '%3D',
-  }) : this.custom(() => Uint8List.fromList(utf8.encode(src)), perc, enc);
+  PercEncEqual(String src, {Base64Encoder enc = base64, String perc = '%3D'})
+      : this.set(() => Uint8List.fromList(utf8.encode(src)), perc, enc);
 
   /// Base64Url alphabet without padding.
-  PercEncEqual.url(String src) : this(src, enc: const Base64UrlEnc.noPad());
+  PercEncEqual.url(String src) : this(src, enc: base64UrlNoPad);
 
   /// Lowercase hex: replace '=' with '%3d'.
   PercEncEqual.lower(String src) : this(src, perc: '%3d');
 
   /// Fully customizing ctor.
-  PercEncEqual.custom(this._toBytes, this._percEnc, this._base64Enc);
+  PercEncEqual.set(this._toBytes, this._percEnc, this._base64Enc);
 
   final ToBytes _toBytes;
   final String _percEnc;
@@ -40,7 +37,6 @@ class PercEncEqual {
 
 void main() {
   group('Base64 Normalizer', () {
-    const base64Norm = Base64Norm();
     test('PercEqual helper class', () {
       expect(PercEncEqual('a').value, 'YQ%3D%3D');
       expect(PercEncEqual.lower('a').value, 'YQ%3d%3d');

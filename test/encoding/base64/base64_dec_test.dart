@@ -41,19 +41,15 @@ void main() {
       const String alphabet =
           'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-      const base64Enc = Base64Enc();
-      const base64EncNoPad = Base64Enc.noPad();
-      const base64UrlEnc = Base64UrlEnc();
-      const base64UrlEncNoPad = Base64UrlEnc.noPad();
       // Generates strings from 'A', 'AB', 'ABC'… up to
       // 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
       for (int i = 0; i < alphabet.length; ++i) {
         final word = alphabet.substring(0, i + 1);
         final bytes = BytesOf.utf8(word).value;
-        expect(Base64DecOf(base64Enc(bytes)).value, bytes);
-        expect(Base64DecOf.norm(base64EncNoPad(bytes)).value, bytes);
-        expect(Base64DecOf.norm(base64UrlEnc(bytes)).value, bytes);
-        expect(Base64DecOf.norm(base64UrlEncNoPad(bytes)).value, bytes);
+        expect(Base64DecOf(base64(bytes)).value, bytes);
+        expect(Base64DecOf.norm(base64NoPad(bytes)).value, bytes);
+        expect(Base64DecOf.norm(base64Url(bytes)).value, bytes);
+        expect(Base64DecOf.norm(base64UrlNoPad(bytes)).value, bytes);
       }
     });
     test('Exceptions', () {

@@ -4,7 +4,34 @@ import '../../byte.dart';
 import 'base64.dart';
 import 'base64_norm.dart';
 
+/// Strict Base64 Decoder
+///
+/// **alphabet**: A–Za–z0–9+/
+///
+/// It requires padding and throws [Base64Exception] if the incoming text is
+/// ill-formed. For a more relaxed decoder, see [base64DecNorm].
+///
+/// Base64 encoding scheme —
+/// [RFC 4648 section 4](https://datatracker.ietf.org/doc/html/rfc4648#section-4)
+const base64Dec = Base64Dec();
+
+/// Normalizing Base64 Decoder
+///
+/// It normalizes the encoded text before trying to decode it.
+///
+/// Normalization process:
+///
+/// - Unescape any '%' that preceeds '3D' (percent-encoded '=').
+/// - Replace '_' or '-' with '/' or '+'.
+/// - Add trailing padding '=' if needed.
+/// - Only base64 characters (A–Za–z0–9/+).
+/// - The total length will always be a multiple of four.
+const base64DecNorm = Base64Dec.norm();
+
 /// Base64 Decoder.
+///
+/// Throws [Base64Exception] when [encoded] does not have the expected base64
+/// format and cannot be parsed.
 ///
 /// Base64 encoding scheme —
 /// [RFC 4648 section 4](https://datatracker.ietf.org/doc/html/rfc4648#section-4)
@@ -30,7 +57,7 @@ class Base64Dec implements Base64Decoder {
   /// - Add trailing padding '=' if needed.
   /// - Only base64 characters (A–Za–z0–9/+).
   /// - The total length will always be a multiple of four.
-  const Base64Dec.norm() : this(const Base64Norm());
+  const Base64Dec.norm() : this(base64Norm);
 
   // Restores the original bytes.
   final _ProperlyPadded _decode;
@@ -38,6 +65,10 @@ class Base64Dec implements Base64Decoder {
   // The normalization phase.
   final Base64NormText _norm;
 
+  /// Returns the decoded bytes of [encoded].
+  ///
+  /// Throws [Base64Exception] when [encoded] does not have the expected base64
+  /// format and cannot be parsed.
   @override
   Uint8List call(String encoded) => _decode(_norm(encoded));
 }
@@ -45,16 +76,13 @@ class Base64Dec implements Base64Decoder {
 /// Convenience Base64 decoder implementation over [Base64Dec].
 class Base64DecOf implements Bytes {
   /// Decoded bytes of [encoded] text.
-  const Base64DecOf(String encoded, [Base64Dec dec = const Base64Dec()])
-      : _encoded = encoded,
-        _dec = dec;
+  const Base64DecOf(String encoded) : this._set(encoded, base64Dec);
 
   /// Normalizes [encoded] before trying to decode it.
-  const Base64DecOf.norm(String encoded)
-      : this(encoded, const Base64Dec.norm());
+  const Base64DecOf.norm(String encoded) : this._set(encoded, base64DecNorm);
 
-  /// Custom
-  const Base64DecOf.custom(this._encoded, this._dec);
+  /// Sets the encoded text and decoder instance.
+  const Base64DecOf._set(this._encoded, this._dec);
 
   final String _encoded;
   final Base64Dec _dec;
@@ -95,32 +123,38 @@ class _ProperlyPadded {
   Uint8List call(String base64) {
     final info = _Base64Info(base64);
     if (info.totalLength % 4 != 0) {
-      throw const FormatException('Invalid base64 encoding length');
+      throw const Base64Exception.length(
+        message: 'Base64 encoding length must be a multiple of 4.',
+      );
     }
     switch (info.payloadLength % 4) {
       case 1:
-        throw const FormatException('Invalid base64 payload length');
+        throw const Base64Exception.length(
+          message: 'Invalid base64 payload length',
+        );
       case 0:
         // There must be no padding.
         if (info.numOfPadChars != 0) {
-          throw const FormatException(
-            "Invalid base64 padding: unnecessary trailing '='.",
+          throw const Base64Exception.padding(
+            message: "Invalid base64 padding: unnecessary trailing '='.",
           );
         }
         break;
       case 2:
         // There must be exactly 2 padding chars.
         if (info.numOfPadChars != 2) {
-          throw const FormatException(
-            "Invalid base64 padding: missing '==' at the end of the encoded text.",
+          throw const Base64Exception.padding(
+            message:
+                "Invalid base64 padding: missing '==' at the end of the encoded text.",
           );
         }
         break;
       case 3:
         // There must be a single padding char at the end.
         if (info.numOfPadChars != 1) {
-          throw const FormatException(
-            "Invalid base64 padding: there should only be one '=' at the end of the encoded text.",
+          throw const Base64Exception.padding(
+            message:
+                "Invalid base64 padding: there should be a single '=' at the end of the encoded text.",
           );
         }
     }
@@ -192,15 +226,11 @@ class _Base64Indexes {
   int operator [](int i) {
     final code = _base64.codeUnitAt(i);
     if (code < 0 || code > 127) {
-      throw const FormatException(
-        'Illegal base64 character: non-ascii character found.',
-      );
+      throw const Base64Exception.nonAscii();
     }
     final index = _asciiBase64Indexes[code];
     if (index < 0) {
-      throw const FormatException(
-        "Invalid base64 character: ascii character other than '[A-Za-z][0-9]+/'.",
-      );
+      throw const Base64Exception.illegalAscii();
     }
     return index;
   }
