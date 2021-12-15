@@ -2,8 +2,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:dartoos/dartoos.dart';
-import 'package:dartoos/src/encoding/base64/base64_enc.dart';
+import 'package:dartoos/dartoos.dart' as dartoos;
 
 import '../utils/perf_gain.dart';
 
@@ -27,7 +26,7 @@ void main() {
   const len = 50000000;
   const alphabet =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  final bytes = BytesOf.text(Rand(len, alphabet)).value;
+  final bytes = dartoos.BytesOf.text(dartoos.Rand(len, alphabet)).value;
   print('\nLength of the data to be encoded: ${bytes.length} bytes.');
 
   print('\n--- Encoding elapsed times ---');
@@ -39,8 +38,7 @@ void main() {
   watch.reset();
 
   watch.start();
-  const dartoosBase64Enc = Base64Enc();
-  final dartoosEnc = dartoosBase64Enc(bytes);
+  final dartoosEnc = dartoos.base64(bytes);
   final dartoosEncTime = watch.elapsedMicroseconds / 1000;
   print('Dartoos base64-encoding...: $dartoosEncTime milliseconds');
   watch.stop();
@@ -57,8 +55,7 @@ void main() {
   watch.reset();
 
   watch.start();
-  const dartoosDecoder = Base64Dec();
-  final dartoosDec = dartoosDecoder(dartoosEnc);
+  final dartoosDec = dartoos.base64Dec(dartoosEnc);
   final dartoosDecTime = watch.elapsedMicroseconds / 1000;
   print('Dartoos base64-decoding...: $dartoosDecTime milliseconds');
   watch.stop();
@@ -80,13 +77,3 @@ bool bytesEqual(Uint8List first, Uint8List second) {
   }
   return i == length;
 }
-
-/// Returns a formatted string describing the performance gain ('+', positive
-/// values) or loss ('-', negative values).
-///
-/// Examples: +12% for a performance gain; -5.5% for a performance loss.
-// String perfGain(double dartTime, double dartoosTime) {
-// final perc = ((dartTime / dartoosTime) * 100) - 100;
-// final sign = perc > 0 ? '+' : '';
-// return "$sign${perc.toStringAsFixed(2)}% ('+' gain; '-' loss)";
-// }

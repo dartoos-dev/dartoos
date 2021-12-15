@@ -2,7 +2,21 @@ import 'dart:convert';
 
 import 'base64.dart';
 
+/// Normalizes base64-encoded text:
+///
+/// - Unescape any '%' that preceeds '3D' (percent-encoded '=').
+/// - Replace '_' or '-' with '/' or '+'.
+/// - Add trailing padding '=' or '==', if needed.
+/// - The normalized text will only contain characters within the base64
+///   alphabet (A–Za–z0–9/+).
+/// - The total length will always be a multiple of four.
+///
+/// Throws [Base64Exception] if an unormalized base64 text cannot be parsed.
+const base64Norm = Base64Norm();
+
 /// Represents a normalized base64-encoded text.
+///
+/// Throws [Base64Exception] if an unormalized base64 text cannot be parsed.
 class Base64Norm implements Base64NormText {
   /// Default Normalization process:
   ///
@@ -20,6 +34,9 @@ class Base64Norm implements Base64NormText {
   // The normalization algorithm.
   final _NormChars _norm;
 
+  /// Return a base64 normalized text
+  ///
+  /// Throws [Base64Exception] if [unormalized] cannot be parsed.
   @override
   String call(String unnormalized) => _norm(unnormalized);
 }
@@ -35,7 +52,9 @@ class _TrimEncodedEquals {
 
     final length = text.length;
     if (length < 2) {
-      throw const FormatException('Invalid base64-encoded text length: 1');
+      throw const Base64Exception.length(
+        message: 'Invalid base64-encoded text length: 1',
+      );
     }
     bool _isScapeChar(int pos) => text[pos] == '%';
     bool _isCorrectlyScaped(int percentPos) {
@@ -49,16 +68,12 @@ class _TrimEncodedEquals {
     if (lastScapedPos > 2) {
       if (_isScapeChar(lastScapedPos)) {
         if (!_isCorrectlyScaped(lastScapedPos)) {
-          throw const FormatException(
-            "Invalid percent-encoding of trailing '=' ",
-          );
+          throw const Base64Exception.percEnc();
         } else {
           final lastButOneScapedPos = lastScapedPos - 3;
           if (_isScapeChar(lastButOneScapedPos)) {
             if (!_isCorrectlyScaped(lastButOneScapedPos)) {
-              throw const FormatException(
-                "Invalid percent-encoding of trailing '=' ",
-              );
+              throw const Base64Exception.percEnc();
             }
             return text.substring(0, lastButOneScapedPos);
           }
@@ -95,19 +110,14 @@ class _NormChars {
     final payloadLength = _payloadLengthOf(origin);
     final sextets = utf8.encode(origin);
 
-    for (int i = 0; i < payloadLength; ++i) {
+    for (var i = 0; i < payloadLength; ++i) {
       final sextet = sextets[i];
-      if (sextet < 0x00 || sextet > 0xff) {
-        throw const FormatException(
-          'Base64-encoded text contains non-ascii character(s).',
-        );
+      if ((sextet < 0x00) || (sextet > 0xff)) {
+        throw const Base64Exception.nonAscii();
       }
       final base64Index = _extendedBase64Indexes[sextet];
       if (base64Index == _illegal) {
-        throw const FormatException(
-          "Base64-encoded text contains an illegal ascii symbol"
-          " (a character other than 'A–Za–z0–9+-/_').",
-        );
+        throw const Base64Exception.illegalAscii();
       }
       switch (sextet) {
         case _minus:
@@ -135,7 +145,7 @@ class _NormChars {
     String padding = '';
     switch (bytes.length % 4) {
       case 1:
-        throw const FormatException('Invalid base64 length.');
+        throw const Base64Exception.length();
       case 2:
         padding = '==';
         break;

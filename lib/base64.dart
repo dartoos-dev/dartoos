@@ -7,8 +7,13 @@
 /// >
 /// > — [Base64 encoding. In Wikipedia, The Free
 /// > Encyclopedia](https://en.wikipedia.org/w/index.php?title=Base64&oldid=1054311270)
+///
+/// Specification:
+///
+/// - [RFC 4648](https://datatracker.ietf.org/doc/html/rfc4648)
 library base64;
 
 export 'src/encoding/base64/base64.dart';
 export 'src/encoding/base64/base64_dec.dart';
+export 'src/encoding/base64/base64_enc.dart';
 export 'src/encoding/base64/base64_norm.dart';
