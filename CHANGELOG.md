@@ -7,6 +7,8 @@ and this project adheres to [Dart Package Versioning](https://dart.dev/tools/pub
 
 ## [Unreleased]
 
+## [0.3.1] - 2021-12-15
+
 ### Added
 
 - specific exception for base64 decoding errors — [26](https://github.com/dartoos-dev/dartoos/issues/26)
