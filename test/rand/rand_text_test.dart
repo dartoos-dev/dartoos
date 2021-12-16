@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 import 'seq_random.dart';
 
 void main() {
-  const alphabet = 'abcdefghijklmnopqrstuvxwyz';
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz';
   const digits = '0123456789';
   group('RandText', () {
     final rand = RandText();

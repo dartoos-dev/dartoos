@@ -26,7 +26,7 @@ void main() {
   const len = 50000000;
   const alphabet =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  final bytes = dartoos.BytesOf.text(dartoos.Rand(len, alphabet)).value;
+  final bytes = dartoos.BytesOf.text(dartoos.RandOf(alphabet, len)).value;
   print('\nLength of the data to be encoded: ${bytes.length} bytes.');
 
   print('\n--- Encoding elapsed times ---');
