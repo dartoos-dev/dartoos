@@ -4,9 +4,9 @@
 library dartoos;
 
 export 'base64.dart';
+export 'byte.dart';
 export 'crypto.dart';
+export 'func.dart';
 export 'radix.dart';
 export 'rand.dart';
-export 'src/byte.dart';
-export 'src/func.dart';
-export 'src/text/text.dart';
+export 'text.dart';

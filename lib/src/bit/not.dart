@@ -1,4 +1,4 @@
-import 'bit.dart';
+import 'package:dartoos/bit.dart';
 
 /// Bitwise **NOT** (Complement) Operation.
 class Not implements BitwiseUn {

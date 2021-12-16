@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'func.dart';
-import 'text/text.dart';
+import 'package:dartoos/func.dart';
+import 'package:dartoos/text.dart';
 
 /// Represents a source of bytes.
 abstract class Bytes implements Scalar<Uint8List> {}

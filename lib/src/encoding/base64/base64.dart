@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import '../encoding.dart';
+import 'package:dartoos/src/encoding/encoding.dart';
 
 /// Base64-encoded text.
 abstract class Base64Encoder implements BinToTextEnc {}
@@ -85,7 +85,7 @@ class Base64Exception extends FormatException {
   /// Optionally, you can also supply the [source] with the incorrect format and
   /// the [offset] where the error was detected.
   const Base64Exception.padding({
-    String message = "Base64 invalid padding",
+    String message = 'Base64 invalid padding',
     dynamic source,
     int? offset,
   }) : this(Base64FormatError.padding, message, source, offset);

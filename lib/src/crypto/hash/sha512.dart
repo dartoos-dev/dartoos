@@ -1,10 +1,8 @@
 import 'dart:typed_data';
 
-import '../../bit/rotr.dart';
-import '../../bit/set_uint64.dart';
-import '../../func.dart';
-import 'hash.dart';
-import 'max_input_length.dart';
+import 'package:dartoos/bit.dart';
+import 'package:dartoos/crypto.dart';
+import 'package:dartoos/func.dart';
 
 /// SHA-512 hash function.
 ///
@@ -59,12 +57,14 @@ class _Sha384 with ChunksOf128Bytes {
 /// message be a multiple of 512 bits.
 ///
 /// Padding:
-/// - 1. begin with the original message of length L bits and append a single '1' bit.
-/// - 2. append K '0's, where K is the minimum number >= 0 such that L + 1 + K + 128
-///      is a multiple of 1024, that is, (L + 1 + K) mod 1024 = 896.
-/// - 3. append L as a 128-bit big-endian integer, making the total post-processed
-///   length a multiple of 1024 bits such that the bits in the message are
-///   L 1 00..<K 0's>..00 <L as 128 bit integer> = k*1024 total bits.
+/// - 1. begin with the original message of length L bits and append a single
+///     '1' bit.
+/// - 2. append K '0's, where K is the minimum number >= 0 such that L + 1 + K +
+///      128 is a multiple of 1024, that is, (L + 1 + K) mod 1024 = 896.
+/// - 3. append L as a 128-bit big-endian integer, making the total
+///      post-processed length a multiple of 1024 bits such that the bits in the
+///      message are L 1 00..<K 0's>..00 <L as 128 bit integer> = k*1024 total
+///      bits.
 ///
 /// Example taken from [rfc6234[(https://datatracker.ietf.org/doc/html/rfc6234)
 ///

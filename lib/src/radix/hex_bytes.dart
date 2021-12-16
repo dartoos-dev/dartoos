@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'radix.dart';
+import 'package:dartoos/radix.dart';
 
 /// Hexadecimal text of a list of bytes.
 const hexBytes = HexOfBytes();
@@ -43,9 +43,9 @@ class HexOfBytes implements BytesAsText {
   // The source of hex characters.
   final List<int> _codeUnits;
 
-  /// Text in hexadecimal notation of a list of bytes.
+  /// Returns a hexadecimal representation of [bytes].
   ///
-  /// Each byte is represented by two hexadecimal symbols (digits).
+  /// Each byte is represented by two hexadecimal symbols (hex digits).
   @override
   String call(Uint8List bytes) {
     assert(_codeUnits.length == 256);

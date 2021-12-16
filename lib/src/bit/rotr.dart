@@ -1,5 +1,4 @@
-import 'bit.dart';
-import 'mask.dart';
+import 'package:dartoos/bit.dart';
 // import 'mask.dart';
 // import 'nop.dart';
 

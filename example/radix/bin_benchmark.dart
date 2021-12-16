@@ -52,7 +52,8 @@ void main() {
   print(
     'Performance.........: $perf (Dart elapsed time / Dartoos elapsed time)',
   );
-  print("Are the generated texts the same? ${dartBinText == dartoosBinText}");
+  final sameText = dartBinText == dartoosBinText;
+  print('Are the generated texts the same? $sameText');
 }
 
 /// Convert an integer to its binary text representation.

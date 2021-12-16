@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'base64.dart';
+import 'package:dartoos/base64.dart';
 
 /// Standard base64 encoding.
 ///
@@ -57,7 +57,7 @@ class Base64Enc implements Base64Encoder {
 
   // Standard Base64 alphabet [A–Za–z0–9+/]
   static const String _std =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
   /// Returns the Base64-encoded text of [unencoded].
   @override
@@ -90,7 +90,7 @@ class Base64UrlEnc implements Base64Encoder {
 
   // Base64Url alphabet.
   static const String _url =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
 
   /// Returns the Base64Url-encoded text of [unencoded].
   @override
@@ -219,7 +219,8 @@ class _Base64Indexes implements _Filler {
           // the current octet.
           index |= (octet & _mask2Msb) >> 6;
           sextets[i6] = _alphabet.codeUnitAt(index);
-          // sets the next sextet as the 6-lsb of the current octet — whole sextet value.
+          // sets the next sextet as the 6-lsb of the current octet — whole
+          // sextet value.
           index = octet & _mask6Lsb;
           sextets[i6 + 1] = _alphabet.codeUnitAt(index);
           i6 += 2;

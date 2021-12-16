@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import '../../func.dart';
+import 'package:dartoos/func.dart';
 
 /// Checks whether the length of the original input message is supported.
 ///

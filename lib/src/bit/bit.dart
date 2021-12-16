@@ -1,6 +1,6 @@
 /// Interfaces of the bit library
 
-import '../func.dart';
+import 'package:dartoos/func.dart';
 
 /// A group of related bits to serve as an operand of bitwise operations
 abstract class Bits implements Scalar<int> {}

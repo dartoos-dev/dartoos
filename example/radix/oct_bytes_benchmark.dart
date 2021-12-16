@@ -28,7 +28,7 @@ import '../utils/perf_gain.dart';
 ///
 /// Usually, the items 2 and 3 perform better.
 void main() {
-  print("Dartoos octal text vs. Dart sdk");
+  print('Dartoos octal text vs. Dart sdk');
 
   const len = 5000000;
   final bytes = Uint8List.fromList(List<int>.generate(len, (int i) => i % 256));
@@ -58,7 +58,6 @@ void main() {
 
 /// Typical Dart implementation.
 String bytesAsOctalText(Uint8List bytes) {
-  // return bytes.map((int byte) => byte.toRadixString(8).padLeft(3, '0')).join();
   final buffer = StringBuffer();
   for (var i = 0; i < bytes.length; ++i) {
     buffer.write(bytes[i].toRadixString(8).padLeft(3, '0'));

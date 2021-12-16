@@ -1,5 +1,4 @@
-import 'bit.dart';
-import 'shr.dart';
+import 'package:dartoos/bit.dart';
 
 /// Bitwise **Unsigned** Right-Shift Operation By a Fixed Amount of _n_
 /// Positions.

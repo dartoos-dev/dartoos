@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
-import '../../bit.dart';
-import 'radix.dart';
+import 'package:dartoos/bit.dart';
+import 'package:dartoos/radix.dart';
 
 /// Binary text of n-bit words with padding '0's.
 const bin = Bin();
@@ -69,8 +69,8 @@ class Bin implements BitsAsText {
 
   /// Binary text of n-bit words without padding '0's.
   ///
-  /// Examples: 0x01 => '1'; 0x02 => '10'; 0x04 => '100'; 0x08 => '1000'; 0x44 =>
-  /// '1000100'.
+  /// Examples: 0x01 => '1'; 0x02 => '10'; 0x04 => '100'; 0x08 => '1000'; 0x44
+  /// => '1000100'.
   const Bin.noPad() : this(bitLen: const MinBitLen(), codeUnits: _zeroOne);
 
   /// Binary text of 8-bit words — the default digits are '0' and '1'.

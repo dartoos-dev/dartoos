@@ -1,8 +1,6 @@
 import 'dart:typed_data';
 
-import 'hash.dart';
-import 'sha256.dart';
-import 'sha512.dart';
+import 'package:dartoos/crypto.dart';
 
 /// Hash-based Message Authentication Code
 ///

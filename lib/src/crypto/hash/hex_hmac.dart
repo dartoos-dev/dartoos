@@ -1,8 +1,7 @@
 import 'dart:typed_data';
 
-import '../../../radix.dart';
-import 'hash.dart';
-import 'hmac.dart';
+import 'package:dartoos/crypto.dart';
+import 'package:dartoos/radix.dart';
 
 /// An Hmac value as hex string.
 class HexHmac implements HashStr {

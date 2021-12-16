@@ -1,11 +1,8 @@
 import 'dart:typed_data';
 
-import 'package:dartoos/src/bit/set_uint64.dart';
-
-import '../../bit/rotr.dart';
-import '../../func.dart';
-import 'hash.dart';
-import 'max_input_length.dart';
+import 'package:dartoos/bit.dart';
+import 'package:dartoos/crypto.dart';
+import 'package:dartoos/func.dart';
 
 /// SHA-256 hash function.
 ///
@@ -60,12 +57,14 @@ class _Sha224 with ChunksOf64Bytes {
 /// message a multiple of 256 bits.
 ///
 /// Padding:
-/// - 1. begin with the original message of length L bits and append a single '1' bit.
-/// - 2. append K '0's, where K is the minimum number >= 0 such that L + 1 + K + 64
-///      is a multiple of 512.
-/// - 3. append L as a 64-bit big-endian integer, making the total post-processed
-///   length a multiple of 512 bits such that the bits in the message are
-///   L 1 00..<K 0's>..00 <L as 64 bit integer> = k*512 total bits.
+/// - 1. begin with the original message of length L bits and append a single
+///      '1' bit.
+/// - 2. append K '0's, where K is the minimum number >= 0 such that L + 1 + K +
+///      64 is a multiple of 512.
+/// - 3. append L as a 64-bit big-endian integer, making the total
+///      post-processed length a multiple of 512 bits such that the bits in the
+///      message are
+///      L 1 00..<K 0's>..00 <L as 64 bit integer> = k*512 total bits.
 ///
 /// Example taken from [rfc6234[(https://datatracker.ietf.org/doc/html/rfc6234)
 ///
@@ -294,8 +293,8 @@ class _Compr {
 
   /// The array of round constants.
   ///
-  /// The first 32 bits of the fractional parts of the cube roots of the first 64
-  /// primes 2–311
+  /// The first 32 bits of the fractional parts of the cube roots of the first
+  /// 64 primes 2–311
   static const _rounds = [
     0x428a2f98, // k0
     0x71374491, // k1

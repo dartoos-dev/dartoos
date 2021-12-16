@@ -1,7 +1,5 @@
-import '../text/sep.dart';
-import '../text/tab_text_of_data.dart';
-import 'oct.dart';
-import 'radix.dart';
+import 'package:dartoos/radix.dart';
+import 'package:dartoos/text.dart';
 
 /// Data representation in tabular text with digits in octal notation.
 ///

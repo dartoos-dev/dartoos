@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'radix.dart';
+import 'package:dartoos/radix.dart';
 
 /// Unsigned integer text of a list of bytes.
 const uintBytes = UintBytes();

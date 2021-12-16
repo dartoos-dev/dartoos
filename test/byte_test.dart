@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:dartoos/src/byte.dart';
-import 'package:dartoos/src/text/sep.dart';
+import 'package:dartoos/byte.dart';
+import 'package:dartoos/text.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -28,14 +28,14 @@ void main() {
       expect(BytesOf.text(const Sep.nl()).value, utf8.encode(newline));
     });
     test('from file', () {
-      final tempDir = Directory.systemTemp.createTempSync();
-      final tempFile = File("${tempDir.path}/$pid.test");
+      final dir = Directory.systemTemp.createTempSync();
+      final file = File('${dir.path}/$pid.test');
       try {
-        tempFile.createSync();
-        tempFile.writeAsBytesSync(data);
-        expect(BytesOf.file(tempFile).value, data);
+        file.createSync();
+        file.writeAsBytesSync(data);
+        expect(BytesOf.file(file).value, data);
       } finally {
-        tempDir.deleteSync(recursive: true);
+        dir.deleteSync(recursive: true);
       }
     });
   });

@@ -50,18 +50,13 @@ void main() {
   print('Dartoos elapsed time: $elapsedDartoos milliseconds');
 
   final perf = const PerfGain().value(elapsedDart, elapsedDartoos);
-  print(
-    'Performance ratio...: $perf (Dart elapsed time / Dartoos elapsed time)',
-  );
-  print(
-    'Are the generated hex texts the same? ${dartHexText == dartoosHexText}',
-  );
+  print('Performance ratio...: $perf (Dart elapsed time / Dartoos time)');
+  final sameText = dartHexText == dartoosHexText;
+  print('Are the generated hex texts the same? $sameText');
 }
 
 /// Typical Dart implementation.
 String bytesAsHexText(Uint8List bytes) {
-  // return bytes.map((int byte) => byte.toRadixString(16).padLeft(2, '0')).join();
-
   final buffer = StringBuffer();
   for (var i = 0; i < bytes.length; ++i) {
     buffer.write(bytes[i].toRadixString(16).padLeft(2, '0'));

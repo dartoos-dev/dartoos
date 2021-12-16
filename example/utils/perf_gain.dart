@@ -1,4 +1,4 @@
-import 'package:dartoos/src/func.dart';
+import 'package:dartoos/func.dart';
 
 /// Produces descriptive formatted messages about performance gain or loss.
 ///
@@ -30,6 +30,6 @@ class PerfGain implements BiFunc<String, double, double> {
         : perc > 0
             ? _gain
             : _loss;
-    return "$sign${perc.toStringAsFixed(2)}% $msg";
+    return '$sign${perc.toStringAsFixed(2)}% $msg';
   }
 }

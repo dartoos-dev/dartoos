@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'radix.dart';
+import 'package:dartoos/radix.dart';
 
 /// Octal text of a list of bytes.
 const octBytes = OctOfBytes();
@@ -45,10 +45,10 @@ class OctOfBytes implements BytesAsText {
   // The source of characters.
   final List<int> _codeUnits;
 
-  /// Text in octal notation of a list of bytes.
+  /// Returns the octal text representation of [bytes].
   ///
-  /// Each byte is represented by three octal symbols. Normally, these symbols
-  /// range from '000'(zero) up to '377'.
+  /// Each byte is represented by three octal symbols. These symbols range from
+  /// '000'(zero) up to '377'.
   @override
   String call(Uint8List bytes) {
     assert(_codeUnits.length == 256);

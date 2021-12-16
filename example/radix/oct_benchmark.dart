@@ -2,8 +2,7 @@
 
 import 'dart:typed_data';
 
-import 'package:dartoos/src/radix/oct.dart';
-
+import 'package:dartoos/radix.dart';
 import '../utils/perf_gain.dart';
 
 /// Dartoos octal text vs. Dart's built-in conversion.
@@ -52,9 +51,8 @@ void main() {
   print(
     'Performance ratio...: $perf (Dart elapsed time / Dartoos elapsed time)',
   );
-  print(
-    "Are the generated octal texts the same? ${dartOctText == dartoosOctText}",
-  );
+  final sameText = dartOctText == dartoosOctText;
+  print('Are the generated octal texts the same? $sameText');
 }
 
 /// Convert an integer to its octary text representation.

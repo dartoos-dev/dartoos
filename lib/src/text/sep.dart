@@ -1,6 +1,6 @@
-import 'text.dart';
+import 'package:dartoos/text.dart';
 
-/// Sep — Characters Separator
+/// Sep — Character Separator
 ///
 /// It represents characters commonly used as text separators.
 class Sep with Text {

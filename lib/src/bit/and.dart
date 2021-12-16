@@ -1,4 +1,4 @@
-import 'bit.dart';
+import 'package:dartoos/bit.dart';
 
 /// Bitwise **AND** Operation.
 class And implements BitwiseBi {

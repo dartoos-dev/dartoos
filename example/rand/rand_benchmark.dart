@@ -51,9 +51,8 @@ void main() {
 
   final ratio = (elapsedDartTime / elapsedDartoosTime).toStringAsFixed(2);
   print('Performance ratio....: $ratio (Dart time/Dartoos time)');
-  print(
-    'Are the generated texts the same length? ${dartText.length == dartoosText.length}',
-  );
+  final sameLength = dartText.length == dartoosText.length;
+  print('Are the generated texts the same length? $sameLength');
 }
 
 /// Common approach to generate random Strings in Dart.

@@ -1,10 +1,9 @@
 import 'dart:typed_data';
 
-import '../func.dart';
-import 'copy_char_codes.dart';
-import 'sep.dart';
-import 'tab_info_helper.dart';
-import 'text.dart';
+import 'package:dartoos/func.dart';
+import 'package:dartoos/src/text/copy_char_codes.dart';
+import 'package:dartoos/src/text/tab_info_helper.dart';
+import 'package:dartoos/text.dart';
 
 /// Tabular Text of Regular-Data Lists.
 ///

@@ -1,6 +1,5 @@
-import 'package:dartoos/src/byte.dart';
-import 'package:dartoos/src/encoding/base64/base64_dec.dart';
-import 'package:dartoos/src/encoding/base64/base64_enc.dart';
+import 'package:dartoos/base64.dart';
+import 'package:dartoos/byte.dart';
 import 'package:test/test.dart';
 
 void main() {

@@ -1,4 +1,4 @@
-import 'bit.dart';
+import 'package:dartoos/bit.dart';
 
 /// Bitwise **Unsigned or Logical** Right-Shift Operation.
 ///

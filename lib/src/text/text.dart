@@ -1,4 +1,4 @@
-import '../func.dart';
+import 'package:dartoos/func.dart';
 
 /// A text
 abstract class Text implements Scalar<String> {

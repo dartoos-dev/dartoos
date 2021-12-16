@@ -1,9 +1,7 @@
 import 'dart:typed_data';
 
-import '../../../radix.dart';
-import 'hash.dart';
-import 'sha256.dart';
-import 'sha512.dart';
+import 'package:dartoos/crypto.dart';
+import 'package:dartoos/radix.dart';
 
 /// Hex string of the [sha224] hash function.
 const HashStr hexSha224 = _HexHash.sha224();

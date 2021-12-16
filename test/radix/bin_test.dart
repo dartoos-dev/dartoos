@@ -4,7 +4,8 @@ import 'package:test/test.dart';
 void main() {
   group('Bin', () {
     test('Single byte', () {
-      // values from 0x00₁₆ to 0xff₁₆ => 00000000₂, 00000001₂ … 11111110₂, 11111111₂
+      // values from 0x00₁₆ to 0xff₁₆ => 00000000₂, 00000001₂ … 11111110₂,
+      // 11111111₂
       final values = List<int>.generate(256, (int i) => i);
       const plain = Bin.noPad();
       const padded = Bin.w8();

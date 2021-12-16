@@ -1,5 +1,5 @@
-import '../func.dart';
-import 'sep.dart';
+import 'package:dartoos/func.dart';
+import 'package:dartoos/text.dart';
 
 /// Helper class that retrieves information about the data to be transformed
 /// into a tabular text.

@@ -1,6 +1,5 @@
-import '../func.dart';
-import 'radix.dart';
-import 'uint_dig_len.dart';
+import 'package:dartoos/func.dart';
+import 'package:dartoos/radix.dart';
 
 /// Decorator of [UIntDigLen].
 ///

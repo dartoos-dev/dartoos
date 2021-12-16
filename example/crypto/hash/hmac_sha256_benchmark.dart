@@ -16,7 +16,7 @@ import '../../utils/perf_gain.dart';
 /// ```dart compile jit-snapshot example/crypto/hash/hmac_sha256_benchmark.dart```
 /// ```dart /example/crypto/hash/hmac_sha256_benchemark.jit```
 void main() {
-  print("Dartoos HMAC-SHA256 vs. Cryptos HMAC-SHA256...");
+  print('Dartoos HMAC-SHA256 vs. Cryptos HMAC-SHA256...');
   const len = 25000000;
   const alphabet =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

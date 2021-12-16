@@ -52,9 +52,8 @@ void main() {
   print(
     'Performance ratio...: $perf (Dart elapsed time / Dartoos elapsed time)',
   );
-  print(
-    "Are the generated decimal texts the same? ${dartUintText == dartoosUintText}",
-  );
+  final sameText = dartUintText == dartoosUintText;
+  print('Are the generated decimal texts the same? $sameText');
 }
 
 /// Convert an integer to its decimal text representation.

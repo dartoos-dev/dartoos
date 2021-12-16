@@ -1,9 +1,7 @@
 import 'dart:typed_data';
 
-import '../bit/mor.dart';
-import 'radix.dart';
-import 'uint_dig_len.dart';
-import 'uint_dig_len_oper.dart';
+import 'package:dartoos/bit.dart';
+import 'package:dartoos/radix.dart';
 
 /// Unsigned int text of n-bit words with padding '0's.
 const uint = Uint();

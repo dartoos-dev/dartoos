@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'base64.dart';
+import 'package:dartoos/base64.dart';
 
 /// Normalizes base64-encoded text:
 ///

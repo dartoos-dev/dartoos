@@ -16,7 +16,7 @@ import '../../utils/perf_gain.dart';
 /// ```dart compile jit-snapshot example/crypto/hash/sha512_benchmark.dart```
 /// ```dart /example/crypto/hash/sha512_benchemark.jit```
 void main() {
-  print("Dartoos sha512 vs. Crypto sha512...");
+  print('Dartoos sha512 vs. Crypto sha512...');
 
   const len = 25000000;
   const alphabet =
@@ -41,5 +41,6 @@ void main() {
   print('Dartoos digest value......: $dartoosDigest');
   const perf = PerfGain();
   print('Performance ratio.........: ${perf(cryptoHashTime, dartoosHashTime)}');
-  print('Are the generated digests the same? ${dartoosDigest == cryptoDigest}');
+  final sameText = dartoosDigest == cryptoDigest;
+  print('Are the generated digests the same? $sameText');
 }

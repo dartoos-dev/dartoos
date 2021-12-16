@@ -1,4 +1,4 @@
-import 'bit.dart';
+import 'package:dartoos/bit.dart';
 
 /// Bitwise Left-Shift Operation.
 class Shl implements BitwiseBi {

@@ -1,8 +1,7 @@
 import 'dart:typed_data';
 
+import 'package:dartoos/radix.dart';
 import 'package:dartoos/src/bit/set_uint64.dart';
-
-import 'radix.dart';
 
 /// Binary text of a list of bytes.
 const binBytes = BinBytes();

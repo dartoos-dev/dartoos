@@ -1,6 +1,4 @@
-import 'bit.dart';
-import 'mand.dart';
-import 'nop.dart';
+import 'package:dartoos/bit.dart';
 
 /// Adition Operation.
 class Add implements BitwiseBi {

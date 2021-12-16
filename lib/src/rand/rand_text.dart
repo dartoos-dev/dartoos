@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'dart:typed_data';
 
-import '../func.dart';
+import 'package:dartoos/func.dart';
 
 /// Variable-length texts with randomly selected characters from sources of
 /// eligible characters.

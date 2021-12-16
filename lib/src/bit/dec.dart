@@ -1,4 +1,4 @@
-import 'bit.dart';
+import 'package:dartoos/bit.dart';
 
 /// Decrement Operation.
 class Dec implements BitwiseUn {

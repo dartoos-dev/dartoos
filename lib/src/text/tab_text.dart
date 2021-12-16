@@ -1,6 +1,5 @@
-import '../func.dart';
-import 'sep.dart';
-import 'text.dart';
+import 'package:dartoos/func.dart';
+import 'package:dartoos/text.dart';
 
 /// Callback to be invoked whenever a new row is about to be generated.
 ///

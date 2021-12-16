@@ -1,8 +1,7 @@
 import 'dart:typed_data';
 
-import '../../byte.dart';
-import 'base64.dart';
-import 'base64_norm.dart';
+import 'package:dartoos/base64.dart';
+import 'package:dartoos/byte.dart';
 
 /// Strict Base64 Decoder
 ///
@@ -145,7 +144,7 @@ class _ProperlyPadded {
         if (info.numOfPadChars != 2) {
           throw const Base64Exception.padding(
             message:
-                "Invalid base64 padding: missing '==' at the end of the encoded text.",
+                """Invalid base64 padding: missing '==' at the end of the encoded text.""",
           );
         }
         break;
@@ -154,7 +153,7 @@ class _ProperlyPadded {
         if (info.numOfPadChars != 1) {
           throw const Base64Exception.padding(
             message:
-                "Invalid base64 padding: there should be a single '=' at the end of the encoded text.",
+                """Invalid base64 padding: there should be a single '=' at the end of the encoded text.""",
           );
         }
     }

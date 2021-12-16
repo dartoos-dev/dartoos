@@ -1,5 +1,4 @@
-import 'bit.dart';
-import 'mask.dart';
+import 'package:dartoos/bit.dart';
 
 /// Bitwise Left-Rotation Operation.
 class Rotl implements BitwiseBi {

@@ -1,5 +1,5 @@
-/// Callable helper class that copies character codes from a source [String] into
-/// a destination List<int>.
+/// Callable class that copies character codes from a source [String] into a
+/// destination List<int>.
 class CopyCharCodes {
   /// [dest] the destination of character codes.
   CopyCharCodes(List<int> dest, [int start = 0])

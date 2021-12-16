@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import '../../func.dart';
+import 'package:dartoos/func.dart';
 
 /// Represents a cryptographic hash function.
 abstract class Hash<R extends List<int>, I extends List<int>>

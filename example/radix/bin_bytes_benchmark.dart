@@ -2,7 +2,7 @@
 
 import 'dart:typed_data';
 
-import 'package:dartoos/src/radix/bin_bytes.dart';
+import 'package:dartoos/radix.dart';
 
 import '../utils/perf_gain.dart';
 
@@ -63,8 +63,6 @@ void main() {
 ///
 /// **Note**: even when padding is disabled, Dartoos' performance is better.
 String bytesAsBinText(List<int> bytes) {
-  // return bytes.map((int byte) => byte.toRadixString(2).padLeft(8, '0')).join();
-
   // using StringBuffer runs faster than mapping and joining the list of bytes.
   final buffer = StringBuffer();
   for (var i = 0; i < bytes.length; ++i) {

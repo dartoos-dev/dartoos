@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
-import 'oct_dig_len.dart';
-import 'radix.dart';
+import 'package:dartoos/radix.dart';
 
 /// Octal text of n-bit words with padding '0's.
 const oct = Oct();

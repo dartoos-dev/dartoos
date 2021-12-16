@@ -1,5 +1,4 @@
-import 'bit.dart';
-import 'mask.dart';
+import 'package:dartoos/bit.dart';
 
 /// The minimum amount of bits required to represent the value of an _[n]-bit
 /// words_.

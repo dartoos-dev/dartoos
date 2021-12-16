@@ -1,8 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:dartoos/src/radix/radix.dart';
-
-import 'hex_dig_len.dart';
+import 'package:dartoos/radix.dart';
 
 /// Hex text of n-bit words with padding '0's.
 const hex = Hex();

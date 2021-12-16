@@ -52,12 +52,9 @@ void main() {
   print(
     'Performance ratio...: $perf (Dart elapsed time / Dartoos elapsed time)',
   );
-  print(
-    "Are the generated hex texts the same? ${dartHexText == dartoosHexText}",
-  );
+  final sameText = dartHexText == dartoosHexText;
+  print('Are the generated hex texts the same? $sameText');
 }
 
 /// Convert an integer to its hexadecimal text representation.
-String toHexText(int word) {
-  return word.toRadixString(16).padLeft(2, '0');
-}
+String toHexText(int word) => word.toRadixString(16).padLeft(2, '0');

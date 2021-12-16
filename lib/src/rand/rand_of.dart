@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'dart:typed_data';
 
-import '../text/text.dart';
+import 'package:dartoos/text.dart';
 
 /// Fixed-length texts with randomly selected characters from a source of
 /// eligible characters.

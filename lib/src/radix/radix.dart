@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import '../func.dart';
+import 'package:dartoos/func.dart';
 
 /// Textual representation of a group of _bits_ in a given **radix** or
 /// **numeric base**.

@@ -1,13 +1,9 @@
 // ignore_for_file: avoid_print
 import 'dart:typed_data';
 
-import 'package:dartoos/src/func.dart';
-import 'package:dartoos/src/radix/bin_tab.dart';
-import 'package:dartoos/src/radix/hex_tab.dart';
-import 'package:dartoos/src/radix/oct_tab.dart';
-import 'package:dartoos/src/radix/uint_tab.dart';
-import 'package:dartoos/src/text/sep.dart';
-import 'package:dartoos/src/text/tab_text.dart';
+import 'package:dartoos/func.dart';
+import 'package:dartoos/radix.dart';
+import 'package:dartoos/text.dart';
 
 /// Left-padded text representation of [int].
 class LeftPad implements Func<String, int> {

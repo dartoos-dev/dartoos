@@ -23,6 +23,7 @@ export 'src/radix/oct.dart';
 export 'src/radix/oct_bytes.dart';
 export 'src/radix/oct_dig_len.dart';
 export 'src/radix/oct_tab.dart';
+export 'src/radix/radix.dart';
 export 'src/radix/uint.dart';
 export 'src/radix/uint_bytes.dart';
 export 'src/radix/uint_dig_len.dart';

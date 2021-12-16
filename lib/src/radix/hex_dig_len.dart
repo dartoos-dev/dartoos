@@ -1,7 +1,5 @@
-import '../bit/bit.dart';
-import '../bit/fix_bit_len.dart';
-import '../bit/min_bit_len.dart';
-import 'radix.dart';
+import 'package:dartoos/bit.dart';
+import 'package:dartoos/radix.dart';
 
 /// The amount of hexadecimal digits to represent the value of n-bit words.
 ///

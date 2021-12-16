@@ -1,4 +1,4 @@
-import 'bit.dart';
+import 'package:dartoos/bit.dart';
 
 /// Bitwise Left-Shift Operation By a Fixed Amount of _n_ Positions.
 class NShl implements BitwiseUn {

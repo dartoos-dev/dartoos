@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
-import '../func.dart';
-import 'mask.dart';
+import 'package:dartoos/bit.dart';
+import 'package:dartoos/func.dart';
 
 /// Sets a 64-bit word into a [ByteData] according to the given endianness.
 ///
