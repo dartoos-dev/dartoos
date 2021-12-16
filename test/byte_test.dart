@@ -10,13 +10,14 @@ void main() {
     const data = [0x30, 0x31, 0x32];
     test('from list', () {
       expect(BytesOf.list(data).value, data);
+      expect(BytesOf.list(data).call(), data);
     });
     test('from filled list', () {
       expect(BytesOf.filled(3, 0x00).value, [0x00, 0x00, 0x00]);
     });
     test('from utf8', () {
       final String str = utf8.decode(data);
-      expect(BytesOf.utf8(str).value, data);
+      expect(BytesOf.utf8(str)(), data);
       expect(BytesOf.utf8('abc').value, utf8.encode('abc'));
     });
     test('from string', () {

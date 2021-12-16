@@ -8,5 +8,8 @@ void main() {
       expect(shift1(105), 52);
       expect(shift1(-105), -53);
     });
+    test('negative position', () {
+      expect(() => NShrs(-1), throwsA(isA<AssertionError>()));
+    });
   });
 }
