@@ -7,6 +7,18 @@ and this project adheres to [Dart Package Versioning](https://dart.dev/tools/pub
 
 ## [Unreleased]
 
+### Added
+
+- classes RandText, RandTextSrc, and RandTextLen — [29](https://github.com/dartoos-dev/dartoos/issues/29).
+
+### Changed
+
+- rename class Rand to RandOf — **Breaking Change**.
+
+### Removed
+
+- RandDig and RandHex classes — **Breaking Change**s.
+
 ## [0.3.1] - 2021-12-15
 
 ### Added

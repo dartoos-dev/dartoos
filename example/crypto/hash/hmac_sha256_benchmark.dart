@@ -20,7 +20,7 @@ void main() {
   const len = 25000000;
   const alphabet =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  final data = BytesOf.text(Rand(len, alphabet)).value;
+  final data = BytesOf.text(RandOf(alphabet, len)).value;
   final key = BytesOf.utf8('Dartoos vs Crypto').value;
   print('\nLength of the data to be hashed: ${data.lengthInBytes} bytes.');
 

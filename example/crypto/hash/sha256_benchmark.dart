@@ -21,7 +21,7 @@ void main() {
   const len = 25000000;
   const alphabet =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  final data = BytesOf.text(Rand(len, alphabet)).value;
+  final data = BytesOf.text(RandOf(alphabet, len)).value;
   print('\nLength of the data to be hashed: ${data.lengthInBytes} bytes.');
 
   print('\n--- Hashing elapsed times ---');

@@ -2,7 +2,7 @@
 
 import 'dart:math';
 
-import 'package:dartoos/src/rand/rand.dart';
+import 'package:dartoos/rand.dart';
 
 /// Dartoos random text generator vs. Dart's built-in generator.
 ///
@@ -37,15 +37,14 @@ void main() {
 
   print('Start...');
   final watch = Stopwatch()..start();
-  final dartText = randText(len, src, index);
+  final dartText = randText(src, len, index);
   final elapsedDartTime = watch.elapsedMilliseconds;
   print('\nDart elapsed time....: $elapsedDartTime milliseconds');
   watch.stop();
   watch.reset();
 
   watch.start();
-  final rand = Rand(len, src, index);
-  final dartoosText = rand();
+  final dartoosText = RandOf(src, len, index).value;
   final elapsedDartoosTime = watch.elapsedMilliseconds;
   print('Dartoos elapsed time.: $elapsedDartoosTime milliseconds');
   watch.stop();
@@ -58,7 +57,7 @@ void main() {
 }
 
 /// Common approach to generate random Strings in Dart.
-String randText(int len, String chars, Random index) {
+String randText(String chars, int len, Random index) {
   final buffer = StringBuffer();
   for (var i = 0; i < len; ++i) {
     buffer.write(chars[index.nextInt(chars.length)]);
