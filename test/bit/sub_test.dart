@@ -2,7 +2,7 @@ import 'package:dartoos/src/bit/sub.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Subtraction Operation', (){
+  group('Subtraction Operation', () {
     const ones = 0xFFFFFFFFFFFFFFFF;
     const zeroes = 0x000000000000000;
     test('Default overflow semantics', () {
