@@ -3,18 +3,16 @@ import 'dart:typed_data';
 
 import '../text/text.dart';
 
-/// Fixed-length Random Text.
+/// Fixed-length texts with randomly selected characters from a source of
+/// eligible characters.
 ///
-/// It generates random text with a predefined length.
-///
-/// For a cryptographically secure random number, either pass a [Random.secure]
-/// instance as the index generator or use [Rand.secure] constructor.
+/// For a cryptographically secure random number, see [Rand.secure].
 class Rand with Text {
-  /// Random text with [src] as the non-empty source of eligible characters,
-  /// [len] as the length, and [index] as the index randomizer.
+  /// Texts of length [len] with randomly selected characters from [src].
   ///
-  /// **Note**: for a cryptographically secure random number generator, pass a
-  /// [index] instance using [Random.secure] or use [Rand.secure].
+  /// [len] >= 0; src must not be empty.
+  ///
+  /// For a cryptographically secure random number generator, see [Rand.secure].
   Rand(int len, String src, [Random? index])
       : assert(len >= 0, 'Error: negative length.'),
         assert(src.isNotEmpty, 'Error: empty source of eligible characters.'),
@@ -22,7 +20,10 @@ class Rand with Text {
         _src = src,
         _index = index ?? Random();
 
-  /// Cryptographically secure random text.
+  /// Cryptographically secure texts of length [len] with randomly selected
+  /// characters from [src].
+  ///
+  /// [len] >= 0; src must not be empty.
   ///
   /// It uses an instance of [Random.secure] as the index randomizer.
   Rand.secure(int len, String src) : this(len, src, Random.secure());
@@ -31,7 +32,8 @@ class Rand with Text {
   final String _src;
   final Random _index;
 
-  /// Generates text of predefined length with randomly selected characters.
+  /// Generates fixed-length texts with randomly selected characters from the
+  /// source of eligible characters.
   @override
   String call() {
     final Uint16List codes = Uint16List(_len);
