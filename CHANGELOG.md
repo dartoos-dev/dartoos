@@ -7,6 +7,8 @@ and this project adheres to [Dart Package Versioning](https://dart.dev/tools/pub
 
 ## [Unreleased]
 
+## [0.4.0] - 2021-12-16
+
 ### Added
 
 - classes RandText, RandTextSrc, and RandTextLen — [29](https://github.com/dartoos-dev/dartoos/issues/29).
