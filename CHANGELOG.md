@@ -7,6 +7,10 @@ and this project adheres to [Dart Package Versioning](https://dart.dev/tools/pub
 
 ## [Unreleased]
 
+### Added
+
+- _'Contribute'_ section to README — [39](https://github.com/dartoos-dev/dartoos/issues/39).
+
 ## [0.4.0] - 2021-12-16
 
 ### Added

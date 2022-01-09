@@ -52,6 +52,22 @@ const like = 'sample';
 ```
 -->
 
+## Contribute
+
+Contributors are welcome!
+
+1. Open an issue regarding an improvement, a bug you noticed, or ask to be
+   assigned to an existing one.
+2. If the issue is confirmed, fork the repository, do the changes on a separate
+   branch and make a _Pull Request_.
+3. After review and acceptance, the _Pull Request_ is merged and closed.
+
+Make sure the commands below **passes** before making a Pull Request.
+
+```shell
+  dart analyze && sudo dart test
+```
+
 ## Additional information
 
 <!--
